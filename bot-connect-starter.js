@@ -24,24 +24,7 @@ let tableWrapper = '';
 
 const app = express();
 
-let myHtml = `    
-    <!doctype html>
-    <head>
-        <script type="text/javascript">
-            function getAppSettings() {
-                window.location.href = "http://localhost:9090/getAppSettings";
-            }
-        </script>
-    </head>
-    <html lang="en">
-        <body>
-            <div class='wrapper'>
-                <button onclick="getAppSettings()">Fetch Application Settings</button>
-                ${tableWrapper}
-            </div>
-        </body>
-    </html>
-`;
+let myHtml = '';
 
 dns.lookup(openWeather.LOOKUP_URL, {}, (address, family) => {
     console.log(`address: ${address} - family: ${family}`);
@@ -66,9 +49,17 @@ fs.readFile('./city.list.json', { encoding: 'utf8' }, (data) => {
 //     res.end(myHtml);
 // }).listen(appSettings.PORT);
 
-app.get('/', (req, res) => {    
-    res.send(myHtml);
-});
+const readHtml = async () => {
+    myHtml = await fs.readFileStream('./bot/config/fetch-app-config.htm', {encoding: 'utf8'});
+    app.get('/', (req, res) => {    
+        res.type('text/html');
+        myHtml = myHtml.replace('{tableWrapper}', 'Hello!!');
+        res.send(myHtml);
+    });
+};
+
+readHtml();
+
 
 app.get('/getAppSettings', (req, res) => {
     fs.readFile('./app-config.json', { encoding: 'utf8' }, (data) => {
@@ -78,24 +69,8 @@ app.get('/getAppSettings', (req, res) => {
             tableWrapper += `<tr><td>${columnName}</td><td>${data[columnName]}</td></tr>`;
         });
         tableWrapper += '</table>';
-        myHtml = `    
-            <!doctype html>
-            <head>
-                <script type="text/javascript">
-                    function getAppSettings() {
-                        window.location.href = "http://localhost:9090/getAppSettings";
-                    }
-                </script>
-            </head>
-            <html lang="en">
-                <body>
-                    <div class='wrapper'>
-                        <button onclick="getAppSettings()">Fetch Application Settings</button>
-                        ${tableWrapper}
-                    </div>
-                </body>
-            </html>
-        `;
+        myHtml = myHtml.replace('Hello!!', tableWrapper.toString());
+        res.type('text/html');
         res.send(myHtml);
     });
 });

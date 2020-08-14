@@ -4,7 +4,7 @@
   "description": "Online Connect Bot",
   "main": "bot-connect-starter.js",
   "scripts": {
-    "postinstall": "node ./bot/config-prompt",
+    "postinstall": "node ./bot/config/config-prompt",
     "start": "npm run postinstall && nodemon main",
     "test": "jest",
     "test:coverage": "jest --coverage"

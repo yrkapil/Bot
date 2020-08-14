@@ -3,7 +3,7 @@ const openWeather = {
     URL: 'http://api.openweathermap.org/data/2.5/forecast',
     LOOKUP_URL: 'api.openweathermap.org',
     RESOLVER_URL: 'openweathermap.org',
-    API_KEY: 'f56cb494d60ca2b424b006e5b4da2e83',
+    API_KEY: '****************',
     CITY: 'Bengaluru'
 };
 

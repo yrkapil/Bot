@@ -42,9 +42,14 @@ const writeFile = (filePath, data, {encoding = null, mode = '0o666', flag = 'w'}
 const readFileStream = (filePath, {encoding = null, flag = 'a+', start, end, highWaterMark = 16}) => {
     return new Promise((resolve, reject) => {
         const streamReader = fs.createReadStream(filePath, {encoding, flag, start, end, highWaterMark});
+        const chunks = [];
         streamReader.on('data', (chunk) => {
-            console.log(chunk);
-            resolve(chunk);
+            chunks.push(chunk);
+            console.log(chunk);            
+        });
+        streamReader.on('end', () => {
+            console.log('There will be no more data.');
+            resolve(chunks.join(''));
         });
     });
 };
@@ -58,11 +63,19 @@ const writeFileStream = (filePath, data, {encoding = null, flag = 'w', start, en
     });
 };
 
+const fileExists = (filePath) => {
+    if (fs.existsSync(filePath)) {
+        return true;
+    }
+    return false;
+}
+
 module.exports = {
     readDir,
     updateFilePersmissions,
     readFile,
     readFileStream,
     writeFile,
-    writeFileStream
+    writeFileStream,
+    fileExists
 };

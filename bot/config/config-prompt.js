@@ -56,6 +56,8 @@ let questions = [
     }
 ];
 
+if (fs.fileExists('./app-config.json')) return;
+
 inquirer.prompt(questions).then((answers) => {
     fs.writeFileStream(`./app-config.json`, answers, { encoding: 'utf8' });
 });
