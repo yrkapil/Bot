@@ -1,0 +1,9 @@
+{
+    "appName": "sdf",
+    "appDesc": "Sample Application description",
+    "sourceManagement": "git",
+    "appPlatform": "NodeJs",
+    "isExpressUsed": true,
+    "appHost": "127.0.0.1",
+    "appPort": 9090
+}

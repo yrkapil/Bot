@@ -1,0 +1,42 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "Online Connect Bot",
+  "main": "bot-connect-starter.js",
+  "scripts": {
+    "postinstall": "node ./bot/config-prompt",
+    "start": "npm run postinstall && nodemon main",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yrkapil/Bot.git"
+  },
+  "keywords": [
+    "node",
+    "bot",
+    "online",
+    "connect",
+    "ilab"
+  ],
+  "author": "ilab bot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yrkapil/Bot/issues"
+  },
+  "homepage": "https://github.com/yrkapil/Bot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inquirer": "^7.3.3",
+    "istanbul": "^0.4.5",
+    "jest": "^26.2.2",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  }
+}
